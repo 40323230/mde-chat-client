@@ -41,7 +41,6 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
                 console.log("Error has occured: ", error);
             });
     }
-
     $scope.loginUser = function(user) {
         Auth.$signInWithEmailAndPassword(user.email, user.password)
             .then(function(authData) {
@@ -51,15 +50,13 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
                 console.error("Authentication failed:", error);
             });
     }
-
     $scope.logout = function() {
+        console.log("Signed out.");
         Auth.$signOut();
     }
-
     //init database location and bind firebase db messages to $scope.messages
     var Messages = FB.database().ref().child("messages");
     $scope.messages = $firebaseArray(Messages);
-
     $scope.addMessage = function(message) {
         var Today = new Date();
         if ($scope.loggedInUser && message.text!='') {
@@ -81,7 +78,29 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
             message.text = "";
         }
     }
-
+    var sportMessages = FB.database().ref().child("sportmessages");
+    $scope.sportmessages = $firebaseArray(sportMessages);
+    $scope.addSportMessage = function(sportmessage) {
+        var Today = new Date();
+        if ($scope.loggedInUser && sportmessage.text!='') {
+            $scope.sportmessages.$add({
+              uid: $scope.loggedInUser.uid,
+              email: $scope.loggedInUser.email,
+              time: {
+                year: Today.getFullYear(),
+                month: (Today.getMonth()+1<10?'0':'')+(Today.getMonth()+1),
+                date: (Today.getDate()<10?'0':'')+Today.getDate(),
+                hours: (Today.getHours()<10?'0':'')+Today.getHours(),
+                minutes: (Today.getMinutes()<10?'0':'')+Today.getMinutes(),
+                seconds: (Today.getSeconds()<10?'0':'')+Today.getSeconds(),
+              },
+              text: sportmessage.text,
+            });
+            //Scroll to bottom when new message entered
+            $ionicScrollDelegate.scrollBottom();
+            sportmessage.text = "";
+        }
+    }
 }])
 
 .run(['$ionicPlatform', function($ionicPlatform) {
