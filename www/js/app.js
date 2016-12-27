@@ -1,4 +1,6 @@
-angular.module('chat-app', ['ionic', 'firebase'])
+//KMOL Chat app
+
+angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes', 'app.directives','app.services'])
 
 .factory("FB", function() {
     // Initialize Firebase
@@ -93,3 +95,55 @@ angular.module('chat-app', ['ionic', 'firebase'])
         }
     });
 }])
+
+.config(function($ionicConfigProvider, $sceDelegateProvider){
+  $sceDelegateProvider.resourceUrlWhitelist([ 'self','*://www.youtube.com/**', '*://player.vimeo.com/video/**']);
+})
+/*
+  This directive is used to disable the "drag to open" functionality of the Side-Menu
+  when you are dragging a Slider component.
+*/
+.directive('disableSideMenuDrag', ['$ionicSideMenuDelegate', '$rootScope', function($ionicSideMenuDelegate, $rootScope) {
+    return {
+        restrict: "A",
+        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+
+            function stopDrag(){
+              $ionicSideMenuDelegate.canDragContent(false);
+            }
+
+            function allowDrag(){
+              $ionicSideMenuDelegate.canDragContent(true);
+            }
+
+            $rootScope.$on('$ionicSlides.slideChangeEnd', allowDrag);
+            $element.on('touchstart', stopDrag);
+            $element.on('touchend', allowDrag);
+            $element.on('mousedown', stopDrag);
+            $element.on('mouseup', allowDrag);
+
+        }]
+    };
+}])
+/*
+  This directive is used to open regular and dynamic href links inside of inappbrowser.
+*/
+.directive('hrefInappbrowser', function() {
+  return {
+    restrict: 'A',
+    replace: false,
+    transclude: false,
+    link: function(scope, element, attrs) {
+      var place = attrs['hrefInappbrowser'] || '_system';
+      element.bind('click', function (event) {
+
+        var href = event.currentTarget.href;
+
+        window.open(href, place, 'location=yes');
+
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    }
+  };
+});

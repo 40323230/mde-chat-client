@@ -1,0 +1,23 @@
+<ion-view title="Kmol Chat" id="page1">
+  <ion-content padding="true" class="has-header">
+    <h1 id="logIn-heading1" style="color:#000000;">Welcome!</h1>
+    <div id="logIn-markdown1" class="show-list-numbers-and-dots">
+      <p style="color:#000000;">Thanks for using this app.</p>
+      <p style="color:#000000;">Come and have a pleasant conversation!</p>
+      <div class="list">
+          <label class="item item-input">
+              <span class="input-label">Username</span>
+              <input type="email" placeholder="ex: dehamzah@gmail.com" ng-model="user.email">
+          </label>
+          <label class="item item-input">
+              <span class="input-label">Password</span>
+              <input type="password" placeholder="Enter your password..." ng-model="user.password">
+          </label>
+      </div>
+      <center>
+          <button class="button button-positive" ng-click="loginUser(user)" ui-sref="rooms.lobby">Login</button>
+          <button class="button button-balanced" ng-click="createUser(user)" ui-sref="rooms.lobby">Sign Up</button>
+      </center>
+    </div>
+  </ion-content>
+</ion-view>

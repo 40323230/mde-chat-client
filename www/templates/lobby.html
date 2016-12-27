@@ -1,0 +1,21 @@
+<ion-view title="Lobby" id="page2">
+  <ion-pane ng-controller="AppCtrl">
+    <ion-content padding="true" class="has-header">
+      <div class="card" ng-repeat="message in messages">
+          <div class="item item-text-wrap">
+              <span style="font-weight:bold">{{message.email}}</span> :
+              <br>
+              {{message.text}}
+              <br>
+              <span style="color:#FF8800">{{message.time.year}}/{{message.time.month}}/{{message.time.date}} {{message.time.hours}}:{{message.time.minutes}} {{message.time.seconds}}</span>
+          </div>
+      </div>
+    </ion-content>
+    <div class="bar bar-footer bar-positive" ng-show="loggedInUser">
+      <div class="title pull-left">
+          <input type="text" placeholder="Write your messages" ng-model="message.text" style="width:85%; margin-top:5px;padding-left:10px">
+      </div>
+      <button class="button" ng-click="addMessage(message)">Send</button>
+    </div>
+  </ion-pane>
+</ion-view>
