@@ -14,7 +14,7 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
     return firebase.initializeApp(config);
 })
 
-.controller("AppCtrl", ['FB', '$firebaseAuth', '$firebaseArray', '$scope', '$ionicScrollDelegate', function(FB, $firebaseAuth, $firebaseArray, $scope, $ionicScrollDelegate) {
+.controller("AppCtrl", ['FB', '$firebaseAuth', '$firebaseArray', '$scope', '$ionicScrollDelegate', '$state', function(FB, $firebaseAuth, $firebaseArray, $scope, $ionicScrollDelegate, $state) {
     //Init firebaseAuth instance
     var Auth = $firebaseAuth();
 
@@ -23,6 +23,7 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
         if (authData) {
             console.log("signed in as:", authData.email);
             $scope.loggedInUser = authData;
+            //$state.go('rooms');
         } else {
             console.log("signed out");
             $scope.loggedInUser = null;
