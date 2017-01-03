@@ -148,6 +148,30 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
             cookmessage.text = "";
         }
     }
+    var privateMessages = FB.database().ref().child("privatemessages");
+    $scope.privatemessages = $firebaseArray(privateMessages);
+    $scope.addPrivateMessage = function(privatemessage, talkingWith) {
+        var Today = new Date();
+        if ($scope.loggedInUser && privatemessage.text!='' && talkingWith!='') {
+            $scope.privatemessages.$add({
+              uid: $scope.loggedInUser.uid,
+              email: $scope.loggedInUser.email,
+              time: {
+                year: Today.getFullYear(),
+                month: (Today.getMonth()+1<10?'0':'')+(Today.getMonth()+1),
+                date: (Today.getDate()<10?'0':'')+Today.getDate(),
+                hours: (Today.getHours()<10?'0':'')+Today.getHours(),
+                minutes: (Today.getMinutes()<10?'0':'')+Today.getMinutes(),
+                seconds: (Today.getSeconds()<10?'0':'')+Today.getSeconds(),
+              },
+              text: privatemessage.text,
+              talkingTo: talkingWith,
+            });
+            //Scroll to bottom when new message entered
+            $ionicScrollDelegate.scrollBottom();
+            privatemessage.text = "";
+        }
+    }
 }])
 
 .run(['$ionicPlatform', function($ionicPlatform) {

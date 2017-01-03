@@ -1,4 +1,10 @@
 <ion-view title="Sport" id="page3">
+  <ion-nav-bar class="bar-balanced">
+    <ion-nav-back-button></ion-nav-back-button>
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-pane ng-controller="AppCtrl">
     <ion-content padding="true" class="has-header">
       <div class="card"  id="loggedInWarning" ng-show="!loggedInUser">
@@ -16,7 +22,7 @@
         </div>
       </div>
     </ion-content>
-    <div class="bar bar-footer bar-positive" ng-show="loggedInUser">
+    <div class="bar bar-footer bar-balanced" ng-show="loggedInUser">
       <div class="title pull-left">
           <input type="text" placeholder="Write your messages..." ng-model="sportmessage.text" style="width:85%; margin-top:5px;padding-left:10px">
       </div>
