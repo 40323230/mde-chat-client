@@ -1,0 +1,26 @@
+<ion-view title="Program" id="page4">
+  <ion-pane ng-controller="AppCtrl">
+    <ion-content padding="true" class="has-header">
+      <div class="card"  id="loggedInWarning" ng-show="!loggedInUser">
+        <div class="item item-text-wrap">
+          <span style="font-weight:bold; color:#FF0000">You need to Login.</span>
+        </div>
+      </div>
+      <div class="card" ng-repeat="e in programmessages" ng-show="loggedInUser">
+        <div class="item item-text-wrap">
+          <span style="font-weight:bold">{{e.email}}</span> :
+          <br>
+          {{e.text}}
+          <br>
+          <span style="color:#FF8800">{{e.time.year}}/{{e.time.month}}/{{e.time.date}} {{e.time.hours}}:{{e.time.minutes}} {{e.time.seconds}}</span>
+        </div>
+      </div>
+    </ion-content>
+    <div class="bar bar-footer bar-positive" ng-show="loggedInUser">
+      <div class="title pull-left">
+          <input type="text" placeholder="Write your messages..." ng-model="programmessage.text" style="width:85%; margin-top:5px;padding-left:10px">
+      </div>
+      <button class="button" ng-click="addProgramMessage(programmessage)">Send</button>
+    </div>
+  </ion-pane>
+</ion-view>

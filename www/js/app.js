@@ -102,6 +102,52 @@ angular.module('chat-app', ['ionic', 'firebase', 'app.controllers', 'app.routes'
             sportmessage.text = "";
         }
     }
+    var programMessages = FB.database().ref().child("programmessages");
+    $scope.programmessages = $firebaseArray(programMessages);
+    $scope.addProgramMessage = function(programmessage) {
+        var Today = new Date();
+        if ($scope.loggedInUser && programmessage.text!='') {
+            $scope.programmessages.$add({
+              uid: $scope.loggedInUser.uid,
+              email: $scope.loggedInUser.email,
+              time: {
+                year: Today.getFullYear(),
+                month: (Today.getMonth()+1<10?'0':'')+(Today.getMonth()+1),
+                date: (Today.getDate()<10?'0':'')+Today.getDate(),
+                hours: (Today.getHours()<10?'0':'')+Today.getHours(),
+                minutes: (Today.getMinutes()<10?'0':'')+Today.getMinutes(),
+                seconds: (Today.getSeconds()<10?'0':'')+Today.getSeconds(),
+              },
+              text: programmessage.text,
+            });
+            //Scroll to bottom when new message entered
+            $ionicScrollDelegate.scrollBottom();
+            programmessage.text = "";
+        }
+    }
+    var cookMessages = FB.database().ref().child("cookmessages");
+    $scope.cookmessages = $firebaseArray(cookMessages);
+    $scope.addCookMessage = function(cookmessage) {
+        var Today = new Date();
+        if ($scope.loggedInUser && cookmessage.text!='') {
+            $scope.cookmessages.$add({
+              uid: $scope.loggedInUser.uid,
+              email: $scope.loggedInUser.email,
+              time: {
+                year: Today.getFullYear(),
+                month: (Today.getMonth()+1<10?'0':'')+(Today.getMonth()+1),
+                date: (Today.getDate()<10?'0':'')+Today.getDate(),
+                hours: (Today.getHours()<10?'0':'')+Today.getHours(),
+                minutes: (Today.getMinutes()<10?'0':'')+Today.getMinutes(),
+                seconds: (Today.getSeconds()<10?'0':'')+Today.getSeconds(),
+              },
+              text: cookmessage.text,
+            });
+            //Scroll to bottom when new message entered
+            $ionicScrollDelegate.scrollBottom();
+            cookmessage.text = "";
+        }
+    }
 }])
 
 .run(['$ionicPlatform', function($ionicPlatform) {

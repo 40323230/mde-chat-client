@@ -37,6 +37,36 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('rooms.program', {
+    url: '/programPage',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/program.html',
+        controller: 'programCtrl'
+      }
+    }
+  })
+
+  .state('rooms.cook', {
+    url: '/cookPage',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/cook.html',
+        controller: 'cookCtrl'
+      }
+    }
+  })
+
+  .state('rooms.private', {
+    url: '/privatePage',
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/myroom.html',
+        controller: 'privateCtrl'
+      }
+    }
+  })
+
   .state('rooms', {
     url: '/roomMenu',
     templateUrl: 'templates/rooms.html',
