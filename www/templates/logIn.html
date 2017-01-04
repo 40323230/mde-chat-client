@@ -6,7 +6,7 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content padding="true" class="has-header" ng-controller="AppCtrl">
-    <center><img src="img/kmol.png" width="400"></center>
+    <center><img src="img/kmol.png" width="95%"></center>
     <h1 id="logIn-heading1" style="color:#000000;">Welcome!</h1>
     <div id="logIn-markdown1" class="show-list-numbers-and-dots">
       <p style="color:#000000;">Thanks for using this app.</p>
@@ -29,8 +29,13 @@
       </div>
       <div ng-show="loggedInUser">
         <br>
-        <h3>You can start from here now!</h3>
-        <img src="img/left-arrow.png" width="200">
+        <h3>Login as:</h3>
+        <br>
+        <ion-item class="item-avatar" id="avatarCard" menu-close="" ng-show="loggedInUser"><img src="img/avatar.png"><h2>{{loggedInUser.email}}</h2></ion-item>
+        <br>
+        <ion-item class="item-icon-left" id="rooms-list-item1" ui-sref="rooms.logIn" menu-close="" ng-click="logout()" ng-show="loggedInUser">
+          <i class="icon ion-navigate"></i><h2>Logout</h2>
+        </ion-item>
       </div>
     </div>
   </ion-content>
